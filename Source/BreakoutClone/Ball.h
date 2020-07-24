@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Ball.generated.h"
 
+class UProjectileMovementComponent;
+
 UCLASS()
 class BREAKOUTCLONE_API ABall : public AActor
 {
@@ -15,12 +17,25 @@ public:
 	// Sets default values for this actor's properties
 	ABall();
 
+	virtual void Launch();
+
+	bool BallLaunched;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UStaticMeshComponent* SM_Ball;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UProjectileMovementComponent* ProjectileMovement;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+		UStaticMeshComponent* GetBall();
 
 };
